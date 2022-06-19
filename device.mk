@@ -11,7 +11,8 @@ PRODUCT_AAPT_PREF_CONFIG := xxxhdpi
 # Alert slider
 PRODUCT_PACKAGES += \
     KeyHandler \
-    tri-state-key-calibrate
+    tri-state-key-calibrate \
+    DeviceSettings
 
 # Audio
 PRODUCT_COPY_FILES += \
@@ -29,8 +30,15 @@ TARGET_SCREEN_WIDTH := 1440
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/display/displayconfig.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630946756802996883.xml
 
+PRODUCT_SYSTEM_PROPERTIES += \
+    sys.brightness.disable_gamma_conversion=true
+
+# Fingerprint
+TARGET_HAS_UDFPS := true
+
 # LiveDisplay
 $(call soong_config_set_bool,OPLUS_LINEAGE_LIVEDISPLAY_HAL,ENABLE_AF,true)
+
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
