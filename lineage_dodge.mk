@@ -13,6 +13,8 @@ $(call inherit-product, device/oneplus/dodge/device.mk)
 
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+DERPFEST_BUILD_TYPE := Official
+TARGET_SUPPORTS_QUICK_TAP := true
 
 PRODUCT_NAME := lineage_dodge
 PRODUCT_DEVICE := dodge
