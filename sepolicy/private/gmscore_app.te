@@ -1,35 +1,3 @@
-# ============================================================
-# FIX: gmscore_app AVC denial for reading adbd_prop
-#
-# Denial from logcat:
-#   avc: denied { read } for name="u:object_r:adbd_prop:s0"
-#     dev="tmpfs" ino=96
-#     scontext=u:r:gmscore_app:s0:c512,c768
-#     tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0
-#     app=com.google.android.gms
-#
-# Triggered by: Google Play Services checking ADB/developer
-# mode status, likely for device integrity/attestation checks.
-# Fires twice in rapid succession suggesting a retry on failure.
-#
-# File location in ROM tree:
-#   There is no dedicated gmscore_app.te in AOSP stock.
-#   The correct location depends on your ROM structure:
-#
-#   Option A (recommended for OEM device repos):
-#     device/<vendor>/<device>/sepolicy/gmscore_app.te  (new file)
-#
-#   Option B (if your ROM already has this file):
-#     system/sepolicy/private/gmscore_app.te
-#
-#   Option C (alternative — add to adbd.te instead):
-#     system/sepolicy/private/adbd.te
-#     using: allow gmscore_app adbd_prop:file read;
-#
-# The property type adbd_prop is defined in:
-#   system/sepolicy/private/property.te
-# and the property itself in:
-#   system/sepolicy/private/property_contexts
-# ============================================================
-
 allow gmscore_app adbd_prop:file read;
+get_prop(gmscore_app, adbd_prop)
+get_prop(gmscore_app, system_adbd_prop)
